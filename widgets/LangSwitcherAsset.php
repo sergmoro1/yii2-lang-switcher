@@ -13,6 +13,8 @@ use yii\web\View;
 class LangSwitcherAsset extends AssetBundle
 {
 	public $sourcePath = '@vendor/sergmoro1/yii2-lang-switcher/assets';
+    public $basePath = '@webroot';
+    //public $baseUrl = '@web';
     public $css = [
     ];
     public $js = [
