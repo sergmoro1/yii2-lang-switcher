@@ -1,11 +1,11 @@
 {
-    "name": "sergmoro1/yii2-yamap",
+    "name": "sergmoro1/yii2-lang-switcher",
     "version": "1.0.0",
-    "description": "Yandex map widget. One or more maps on a page. Lightweight & Simple in use.",
+    "description": "Language switcher for a site content.",
     "keywords": [
         "yii2",
-        "map", 
-        "yandex"
+        "multi",
+        "language"
     ],
     "type": "yii2-extension",
     "license": "MIT",
@@ -17,12 +17,11 @@
     ],
     "minimum-stability": "stable",
     "require": {
-		"php": ">=5.4.0",
         "yiisoft/yii2": "*"
     },
     "autoload": {
         "psr-4": {
-            "sergmoro1\\yamap\\": ""
+            "sergmoro1\\langswitcher\\": ""
         }
     }
 }
