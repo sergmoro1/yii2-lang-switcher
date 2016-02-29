@@ -16,9 +16,10 @@
 &lt;/p&gt;
 </pre>
 
-Как видно, определены два класса: .ru, .en.
-При текущем языке - ru-RU, отображаются html-теги с классом .ru и остальные, а теги с классом .en скрываются.
-Если нажат переключатель языка, теги с классом .ru скрываются, а .en показываются.
+Как видно, определены два класса: <code>.ru</code>, <code>.en</code>.
+При текущем языке - ru-RU, отображаются html-теги с классом <code>.ru</code> и остальные, 
+а теги с классом <code>.en</code> скрываются.
+Если нажат переключатель языка, теги с классом <code>.ru скрываются</code>, а <code>.en</code> показываются.
 
 Именно этот подход и реализован этим небольшим расширением, рассчитанным на поддержку двух языков.
 
@@ -80,9 +81,10 @@ Simpler translate right in place:
 &lt;/p&gt;
 </pre>
 
-So, two classes have defined: .ru, .en.
-For current languge - ru-RU, will show html-tags with class .ru and others, and tags with class .en hide.
-If has pressed languge switcher, tags with .ru hide and with .en shows.
+So, two classes have defined: <code>.ru</code>, <code>.en</code>.
+For current languge - ru-RU, will show html-tags with class <code>.ru</code> and others, 
+and tags with class <code>.en</code> hide.
+If has pressed languge switcher, tags with <code>.ru</code> hide and with <code>.en</code> shows.
 
 This approach is implemented in this little extension for two languages.
 
