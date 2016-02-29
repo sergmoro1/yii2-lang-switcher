@@ -12,14 +12,14 @@ use yii\web\View;
 
 class LangSwitcherAsset extends AssetBundle
 {
-    public $basePath = '@webroot';
-    public $baseUrl = '@web';
+	public $sourcePath = '@vendor/sergmoro1/yii2-lang-switcher/assets';
     public $css = [
     ];
     public $js = [
 		'js/site-language.js',
     ];
     public $depends = [
+		'yii\web\YiiAsset',
     ];
     
     public static function register($view)
