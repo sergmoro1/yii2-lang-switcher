@@ -44,11 +44,14 @@ return [
     'LangSwitcher',
   ],
   ...
+  'modules' =&gt; [
+    'langswitcher' =&gt; ['class' =&gt; 'sergmoro1\langswitcher\Module'],
+  ],
+  ...
   'components' =&gt; [
-    ...
-    'LangSwitcher' =&gt; [
-      'class' =&gt; 'sergmoro1\langswitcher\widgets\LangSwitcher',
-    ],        
+    'LangSwitcher' =&gt; ['class' =&gt; 'sergmoro1\langswitcher\widgets\LangSwitcher'],
+  ],
+];
 </pre>
 
 Вызвать виджет в <code>frontend/views/layouts/main.php</code> или <code>backend/views/layouts/main.php</code>:
@@ -62,7 +65,7 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 
 В меню или любом подходящем месте разместить переключатель:
 <pre>
-&lt;?php echo Html::a('rus|eng', ['site/language']); ?&gt;
+&lt;?php echo Html::a('rus|eng', ['langswitcher/language/switch']); ?&gt;
 </pre>
 
 <h1><a name='en_readme_md'></a>Yii2 language switcher</h1>
@@ -108,11 +111,14 @@ return [
     'LangSwitcher',
   ],
   ...
+  'modules' =&gt; [
+    'langswitcher' =&gt; ['class' =&gt; 'sergmoro1\langswitcher\Module'],
+  ],
+  ...
   'components' =&gt; [
-    ...
-    'LangSwitcher' =&gt; [
-      'class' =&gt; 'sergmoro1\langswitcher\widgets\LangSwitcher',
-    ],        
+    'LangSwitcher' =&gt; ['class' =&gt; 'sergmoro1\langswitcher\widgets\LangSwitcher'],
+  ],
+];
 </pre>
 
 Call widget in <code>frontend/views/layouts/main.php</code> or <code>backend/views/layouts/main.php</code>:
@@ -126,5 +132,5 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 
 In menu place the switcher:
 <pre>
-&lt;?php echo Html::a('rus|eng', ['site/language']); ?&gt;
+&lt;?php echo Html::a('rus|eng', ['langswitcher/language/switch']); ?&gt;
 </pre>

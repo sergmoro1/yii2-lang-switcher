@@ -10,12 +10,15 @@ var site_language = {
 	available: ['ru', 'en']
 };
 site_language.switch = function() {
+	// show tags with current language
 	$("." + this.current).show();
+	// hide others
 	for(var i = 0; i < this.available.length; i++) {
 		if(this.current != this.available[i])
 			$("." + this.available[i]).hide();
 	}
 }
+// apply after page loaded
 jQuery(document).ready(function($) {
 	site_language.switch();
 });

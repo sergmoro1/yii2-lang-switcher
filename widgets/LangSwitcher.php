@@ -23,7 +23,7 @@ class LangSwitcher extends Widget
         parent::init();
 		// read cookies
         $cookies = Yii::$app->request->cookies;
-        //  switch current language
+        //  set current language by cookie
         Yii::$app->language = self::$languages[
 			$cookies->getValue('language', 'ru')
 		];
