@@ -23,8 +23,6 @@
 
 Именно этот подход и реализован этим небольшим расширением, рассчитанным на поддержку двух языков.
 
-Языки могут быть любыми.
-
 <h2>Установка</h2>
 
 В каталоге приложения:
@@ -66,6 +64,23 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 В меню или любом подходящем месте разместить переключатель:
 <pre>
 &lt;?php echo Html::a('rus|eng', ['langswitcher/language/switch']); ?&gt;
+</pre>
+
+В модели нужно предусмотреть выборку данных, соответствующих текущему языку.
+Например так:
+<pre>
+private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
+
+/**
+ * @return text clearing from tags with opposite language class 
+ * @param language
+ */
+public function excludeByLanguage($attribute)
+{
+  $cookies = Yii::$app-&lg;request-&lg;cookies;
+  $language = $cookies-&lg;getValue('language', 'ru');
+  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&lg;(.+)&lt;\/(p|ul|ol|blockquote)&lg;/isU', '', $this-&lg;$attribute);
+}
 </pre>
 
 <h1><a name='en_readme_md'></a>Yii2 language switcher</h1>
@@ -133,4 +148,21 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 In menu place the switcher:
 <pre>
 &lt;?php echo Html::a('rus|eng', ['langswitcher/language/switch']); ?&gt;
+</pre>
+
+In a model should be provided getting content for current language.
+For example:
+<pre>
+private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
+
+/**
+ * @return text clearing from tags with opposite language class 
+ * @param language
+ */
+public function excludeByLanguage($attribute)
+{
+  $cookies = Yii::$app-&lg;request-&lg;cookies;
+  $language = $cookies-&lg;getValue('language', 'ru');
+  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&lg;(.+)&lt;\/(p|ul|ol|blockquote)&lg;/isU', '', $this-&lg;$attribute);
+}
 </pre>

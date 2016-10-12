@@ -27,7 +27,5 @@ class LangSwitcher extends Widget
         Yii::$app->language = self::$languages[
 			$cookies->getValue('language', 'ru')
 		];
-		// assets 
-		LangSwitcherAsset::register($this->view);
     }
 }
