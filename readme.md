@@ -69,7 +69,7 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 В модели нужно предусмотреть выборку данных, соответствующих текущему языку.
 Например так:
 <pre>
-private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
+private static $opposite = ['ru' =&gt; 'en', 'en' =&gt; 'ru'];
 
 /**
  * @return text clearing from tags with opposite language class 
@@ -77,9 +77,9 @@ private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
  */
 public function excludeByLanguage($attribute)
 {
-  $cookies = Yii::$app-&lg;request-&lg;cookies;
-  $language = $cookies-&lg;getValue('language', 'ru');
-  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&lg;(.+)&lt;\/(p|ul|ol|blockquote)&lg;/isU', '', $this-&lg;$attribute);
+  $cookies = Yii::$app-&gt;request-&gt;cookies;
+  $language = $cookies-&gt;getValue('language', 'ru');
+  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&gt;(.+)&lt;\/(p|ul|ol|blockquote)&gt;/isU', '', $this-&gt;$attribute);
 }
 </pre>
 
@@ -153,7 +153,7 @@ In menu place the switcher:
 In a model should be provided getting content for current language.
 For example:
 <pre>
-private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
+private static $opposite = ['ru' =&gt; 'en', 'en' =&gt; 'ru'];
 
 /**
  * @return text clearing from tags with opposite language class 
@@ -161,8 +161,8 @@ private static $opposite = ['ru' =&lg; 'en', 'en' =&lg; 'ru'];
  */
 public function excludeByLanguage($attribute)
 {
-  $cookies = Yii::$app-&lg;request-&lg;cookies;
-  $language = $cookies-&lg;getValue('language', 'ru');
-  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&lg;(.+)&lt;\/(p|ul|ol|blockquote)&lg;/isU', '', $this-&lg;$attribute);
+  $cookies = Yii::$app-&gt;request-&gt;cookies;
+  $language = $cookies-&gt;getValue('language', 'ru');
+  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&gt;(.+)&lt;\/(p|ul|ol|blockquote)&gt;/isU', '', $this-&gt;$attribute);
 }
 </pre>
