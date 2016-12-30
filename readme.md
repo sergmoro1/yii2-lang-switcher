@@ -5,8 +5,7 @@
 В Yii есть поддержка многоязычности, но она не касается контента.
 Контент, обычно, предлагается размещать раздельно. Фактически это разные сайты.
 
-Для блога, например, это не удобно. 
-Проще проводить подстрочный перевод:
+Для блога это не удобно. Проще проводить подстрочный перевод:
 <pre>
 &lt;p class='ru'&gt;
   Текст на родном языке.
@@ -17,9 +16,10 @@
 </pre>
 
 Как видно, определены два класса: <code>.ru</code>, <code>.en</code>.
-При текущем языке - ru-RU, отображаются html-теги с классом <code>.ru</code> и остальные, 
-а теги с классом <code>.en</code> скрываются.
-Если нажат переключатель языка, теги с классом <code>.ru скрываются</code>, а <code>.en</code> показываются.
+При текущем языке - ru-RU, отображаются html-теги с классом <code>.ru</code>, а остальные, теги с классом <code>.en</code> удаляются.
+Если нажат переключатель языка, теги с классом <code>.ru удаляются</code>, а <code>.en</code> показываются.
+
+В поля с "коротким" содержимым (например заголовк поста), языковые версии разделены символом "/". 
 
 Именно этот подход и реализован этим небольшим расширением, рассчитанным на поддержку двух языков.
 
@@ -52,7 +52,7 @@ return [
 ];
 </pre>
 
-Вызвать виджет в <code>frontend/views/layouts/main.php</code> или <code>backend/views/layouts/main.php</code>:
+Вызвать виджет в <code>frontend/views/layouts/main.php</code> или в ином <code>layouts</code>:
 <pre>
 ...
 use sergmoro1\langswitcher\widgets\LangSwitcher;
@@ -67,29 +67,47 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 </pre>
 
 В модели нужно предусмотреть выборку данных, соответствующих текущему языку.
-Например так:
+Для этого нужно подключить поведение.
 <pre>
-private static $opposite = ['ru' =&gt; 'en', 'en' =&gt; 'ru'];
-
-/**
- * @return text clearing from tags with opposite language class 
- * @param language
- */
-public function excludeByLanguage($attribute)
+public function behaviors()
 {
-  $cookies = Yii::$app-&gt;request-&gt;cookies;
-  $language = $cookies-&gt;getValue('language', 'ru');
-  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&gt;(.+)&lt;\/(p|ul|ol|blockquote)&gt;/isU', '', $this-&gt;$attribute);
+	return [
+		'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
+	];
 }
 </pre>
 
+Теперь в представлении <code>frontend/views/post/view.php</code> можно вывести контент следующим образом
+<pre>
+&lt;?= $model-&gt;excludeByLanguage('content'); ?&gt;
+</pre>
+
+а заголовок поста так.
+<pre>
+&lt;?= $model-&gt;splitByLanguage('title'); ?&gt;
+</pre>
+
+Чтобы данные выводились единообразно, в том числе в RSS, нужно в модели <code>common/models/Post.php</code>
+определить метод <code>fields</code>
+<pre>
+public function fields()
+{
+	return [
+		'id', 'author_id', 'slug',
+		'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
+		'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
+		'tags', 'status', 'created_at', 'updated_at', 
+	];
+}
+</pre>
+
+Помните, что в <code>sitemap</code> тоже надо учитывать языковую версию.
+
 <h1><a name='en_readme_md'></a>Yii2 language switcher</h1>
 
-Yii has multi-language support, but there are not about content.
-Content, ordinary, should be on a different sites.
+Yii has multi-language support, but there are not about content. Content, ordinary, should be on a different sites.
 
-But, for blog, it's not convenient. 
-Simpler translate right in place: 
+But, for blog, it's not convenient. Simpler translate right in place: 
 <pre>
 &lt;p class='ru'&gt;
   Текст на родном языке.
@@ -100,9 +118,11 @@ Simpler translate right in place:
 </pre>
 
 So, two classes have defined: <code>.ru</code>, <code>.en</code>.
-For current languge - ru-RU, will show html-tags with class <code>.ru</code> and others, 
-and tags with class <code>.en</code> hide.
-If has pressed languge switcher, tags with <code>.ru</code> hide and with <code>.en</code> shows.
+For current languge - ru-RU, will show html-tags with class <code>.ru</code> 
+and tags with class <code>.en</code> cleaned up.
+If has pressed languge switcher, tags with <code>.ru</code> cleaned up and with <code>.en</code> shows.
+
+Fields with a "short" length (e.g. "title"), language version divided by "/".
 
 This approach is implemented in this little extension for two languages.
 
@@ -136,7 +156,7 @@ return [
 ];
 </pre>
 
-Call widget in <code>frontend/views/layouts/main.php</code> or <code>backend/views/layouts/main.php</code>:
+Call widget in <code>frontend/views/layouts/main.php</code> or any other layout.
 <pre>
 ...
 use sergmoro1\langswitcher\widgets\LangSwitcher;
@@ -150,19 +170,39 @@ In menu place the switcher:
 &lt;?php echo Html::a('rus|eng', ['langswitcher/language/switch']); ?&gt;
 </pre>
 
-In a model should be provided getting content for current language.
-For example:
+In a model should be provided getting data for current language. 
+Behavior shoul be connected in a model <code>/common/models/Post.php</code>.
 <pre>
-private static $opposite = ['ru' =&gt; 'en', 'en' =&gt; 'ru'];
-
-/**
- * @return text clearing from tags with opposite language class 
- * @param language
- */
-public function excludeByLanguage($attribute)
+public function behaviors()
 {
-  $cookies = Yii::$app-&gt;request-&gt;cookies;
-  $language = $cookies-&gt;getValue('language', 'ru');
-  return preg_replace('/&lt;(p|ul|ol|blockquote) class="'. self::$opposite[$language] .'"&gt;(.+)&lt;\/(p|ul|ol|blockquote)&gt;/isU', '', $this-&gt;$attribute);
+	return [
+		'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
+	];
 }
 </pre>
+
+Post content can be shown in <code>frontend/views/post/view.php</code>  
+<pre>
+&lt;?= $model-&gt;excludeByLanguage('content'); ?&gt;
+</pre>
+
+and title.
+<pre>
+&lt;?= $model-&gt;splitByLanguage('title'); ?&gt;
+</pre>
+
+Data to be displayed uniformly, including RSS, need in the model <code>common/models/Post.php</code>
+to define a method <code>fields</code>
+<pre>
+public function fields()
+{
+	return [
+		'id', 'author_id', 'slug',
+		'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
+		'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
+		'tags', 'status', 'created_at', 'updated_at', 
+	];
+}
+</pre>
+
+Remember that in the <code>sitemap</code> is also necessary to take into account the language version.
