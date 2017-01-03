@@ -101,6 +101,16 @@ public function fields()
 }
 </pre>
 
+<h2>Статичный контент</h2>
+Чтобы применить предложенный подход к статичным страницам, нужно пропустить контент через фильтр <code>excludeByLanguage()</code>.
+Для этого нужно, чтобы <code>frontend/controllers/SiteController</code> наследовался от контроллера, определенного в расширении.
+<pre>
+use sergmoro1\langswitcher\controllers\Controller;
+
+class SiteController extends Controller
+{
+</pre>
+
 Помните, что в <code>sitemap</code> тоже надо учитывать языковую версию.
 
 <h1><a name='en_readme_md'></a>Yii2 language switcher</h1>
@@ -203,6 +213,15 @@ public function fields()
 		'tags', 'status', 'created_at', 'updated_at', 
 	];
 }
+</pre>
+
+<h2>Static content</h2>
+To apply the proposed approach to static pages, you need to pass the content through the filter of the <code>excludeByLanguage()</code>.
+This requires that <code>frontend/controllers/SiteController</code> inherits from controller defined in the extension.
+<pre>use sergmoro1\langswitcher\controllers\Controller;
+
+class SiteController extends Controller
+{
 </pre>
 
 Remember that in the <code>sitemap</code> is also necessary to take into account the language version.
