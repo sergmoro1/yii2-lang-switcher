@@ -10,6 +10,7 @@ namespace sergmoro1\langswitcher\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\helpers\Url;
 
 class LanguageController extends Controller {
 	
@@ -29,7 +30,8 @@ class LanguageController extends Controller {
 			'name' => 'language',
 			'value' => $language,
 		]));
-		return $this->redirect($url ? $url : Yii::$app->request->referrer);
+		$referrer = Yii::$app->request->referrer;
+		return $this->redirect($url ? $url : ($referrer ? $referrer : Url::home()));
 	}
 }
 
