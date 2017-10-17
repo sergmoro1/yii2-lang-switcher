@@ -13,7 +13,7 @@ use Yii;
 class Controller extends \yii\web\Controller {
 	protected static $opposite = ['ru' => 'en', 'en' => 'ru'];
 	// tags that can be used with .ru and .en classes
-	private static $translatedTags = '(h1|h2|h3|h4|p|ul|ol|blockquote)';	
+	private static $translatedTags = '(h1|h2|h3|h4|div|p|ul|ol|blockquote)';	
 	
 	/**
 	 * set new traslatedTags

@@ -14,7 +14,7 @@ class LangSwitcher extends Behavior
 {
 	private static $languages = ['ru' => 0, 'en' => 1];
 	private static $opposite = ['ru' => 'en', 'en' => 'ru'];
-	private static $translatedTags = '(h1|h2|h3|h4|p|ul|ol|blockquote)';	
+	private static $translatedTags = '(h1|h2|h3|h4|div|p|ul|ol|blockquote)';	
 
 	/**
 	 * Language version (e.g. title) delimited by '/'. 
