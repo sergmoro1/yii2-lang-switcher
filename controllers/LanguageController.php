@@ -34,6 +34,9 @@ class LanguageController extends Controller {
 		return $this->redirect($url ? $url : ($referrer ? $referrer : Url::home()));
 	}
 
+	/**
+	 * Switch on exact language.
+	 */
     public function actionEn($url = null) { return $this->language('en', $url); }
     public function actionRu($url = null) { return $this->language('ru', $url); }
 
