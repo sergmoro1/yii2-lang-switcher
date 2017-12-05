@@ -33,5 +33,19 @@ class LanguageController extends Controller {
 		$referrer = Yii::$app->request->referrer;
 		return $this->redirect($url ? $url : ($referrer ? $referrer : Url::home()));
 	}
+
+    public function actionEn($url = null) { return $this->language('en', $url); }
+    public function actionRu($url = null) { return $this->language('ru', $url); }
+
+    private function language($selector, $url)
+    {
+		// reading
+		$cookies = Yii::$app->request->cookies;
+		if($cookies->getValue('language', 'ru') == $selector) {
+			$referrer = Yii::$app->request->referrer;
+			return $this->redirect($url ? $url : ($referrer ? $referrer : Url::home()));
+		} else
+			return $this->redirect(['switch', 'url' => $url]);
+	}
 }
 
