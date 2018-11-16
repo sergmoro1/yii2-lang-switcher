@@ -69,9 +69,9 @@ use sergmoro1\langswitcher\widgets\LangSwitcher;
 <pre>
 public function behaviors()
 {
-	return [
-		'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
-	];
+    return [
+        'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
+    ];
 }
 </pre>
 
@@ -90,12 +90,12 @@ public function behaviors()
 <pre>
 public function fields()
 {
-	return [
-		'id', 'author_id', 'slug',
-		'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
-		'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
-		'tags', 'status', 'created_at', 'updated_at', 
-	];
+    return [
+        'id', 'author_id', 'slug',
+        'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
+        'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
+        'tags', 'status', 'created_at', 'updated_at', 
+    ];
 }
 </pre>
 

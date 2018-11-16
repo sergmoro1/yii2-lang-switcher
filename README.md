@@ -70,9 +70,9 @@ Behavior shoul be connected in a model <code>/common/models/Post.php</code>.
 <pre>
 public function behaviors()
 {
-	return [
-		'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
-	];
+    return [
+        'LangSwitcher' =&gt; ['class' =&gt; LangSwitcher::className()],
+    ];
 }
 </pre>
 
@@ -91,12 +91,12 @@ to define a method <code>fields</code>
 <pre>
 public function fields()
 {
-	return [
-		'id', 'author_id', 'slug',
-		'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
-		'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
-		'tags', 'status', 'created_at', 'updated_at', 
-	];
+    return [
+        'id', 'author_id', 'slug',
+        'title' =&gt; function ($model) { return $model-&gt;splitByLanguage('title'); },
+        'content' =&gt; function ($model) { return $model-&gt;excludeByLanguage('content'); },
+        'tags', 'status', 'created_at', 'updated_at', 
+    ];
 }
 </pre>
 

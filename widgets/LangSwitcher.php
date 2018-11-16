@@ -21,13 +21,13 @@ class LangSwitcher extends Widget
     public function init()
     {
         parent::init();
-		// read cookies
-		if(isset(Yii::$app->request->cookies)) {
+        // read cookies
+        if(isset(Yii::$app->request->cookies)) {
             $cookies = Yii::$app->request->cookies;
             //  set current language by cookie
             Yii::$app->language = self::$languages[
-			    $cookies->getValue('language', 'ru')
-		    ];
-		}
+                $cookies->getValue('language', 'ru')
+            ];
+        }
     }
 }
